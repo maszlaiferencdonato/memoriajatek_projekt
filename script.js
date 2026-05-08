@@ -1,12 +1,12 @@
 var jelek = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
 var palya = document.getElementById('palya');
-var csuszka = document.getElementById('csuszka');
+var csuszka = document.getElementById('kartya-szam');
 var ertekSzoveg = document.getElementById('ertek');
-var gomb = document.getElementById('keveres');
+var gomb = document.getElementById('keveres-btn');
 
 function jatekInditasa() {
     palya.innerHTML = '';
-    var darab = csuszka.value;
+    var darab = parseInt(csuszka.value);
     
     var aktualisJelek = [];
     for (var i = 0; i < darab; i++) {
