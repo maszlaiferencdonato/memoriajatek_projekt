@@ -1,0 +1,8 @@
+MEMÓRIAJÁTÉK PROJEKTTERV
+
+1. Tervezés: Téma kiválasztása, funkciók listázása és egyszerű rajz a felületről.
+2. Alapok: HTML szerkezet és CSS kinézet elkészítése (legyen mobilbarát).
+3. Logika: JavaScript kód megírása (keverés, párkeresés, pontszámok).
+4. Adatkezelés: LocalStorage használata a toplistához.
+5. Dokumentálás: Felhasználói és fejlesztői leírás + 3 teszteset dokumentálása.
+6. Git: Folyamatos mentés GitHub-ra (legalább 10-15 commit).
