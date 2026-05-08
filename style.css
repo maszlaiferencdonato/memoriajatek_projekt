@@ -1,0 +1,15 @@
+#palya {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 5px;
+}
+
+.kartya {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    text-align: center;
+    line-height: 100px;
+    font-size: 40px;
+    cursor: pointer;
+}
