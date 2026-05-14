@@ -1,9 +1,12 @@
-var jelek = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
+var jelek = ['🍎', '🍎', '🍌', '🍌', '🍇', '🍇', '🍓', '🍓', '🍒', '🍒', '🥝', '🥝', '🍍', '🍍', '🍊', '🍊'];
 var palya = document.getElementById('palya');
-var csuszka = document.getElementById('kartya-szam'); // Az ID-t a képed alapján javítottam
+var csuszka = document.getElementById('kartya-szam');
 var ertekSzoveg = document.getElementById('ertek');
-var gomb = document.getElementById('keveres-btn'); // Az ID-t a képed alapján javítottam
+var gomb = document.getElementById('keveres-btn');
 
+var elsoKartya = null;
+var masodikKartya = null;
+var stop = false;
 
 var mentettDarab = localStorage.getItem('utolsoBeallitas');
 if (mentettDarab) {
@@ -13,8 +16,11 @@ if (mentettDarab) {
 
 function jatekInditasa() {
     palya.innerHTML = ''; 
+    elsoKartya = null;
+    masodikKartya = null;
+    stop = false;
+
     var darab = parseInt(csuszka.value);
-    
     var aktualisJelek = [];
     for (var i = 0; i < darab; i++) {
         aktualisJelek.push(jelek[i]);
@@ -26,15 +32,44 @@ function jatekInditasa() {
         var div = document.createElement('div');
         div.className = 'kartya';
         div.innerHTML = '?';
-        div.id = i;
         div.setAttribute('data-jel', aktualisJelek[i]);
 
         div.onclick = function() {
+            if (stop || this == elsoKartya || this.innerHTML != '?') {
+                return;
+            }
+
             this.innerHTML = this.getAttribute('data-jel');
             this.style.backgroundColor = 'white';
             this.style.color = 'black';
-        };
 
+            if (elsoKartya == null) {
+                elsoKartya = this;
+            } else {
+                masodikKartya = this;
+                stop = true;
+
+                if (elsoKartya.getAttribute('data-jel') == masodikKartya.getAttribute('data-jel')) {
+                    elsoKartya = null;
+                    masodikKartya = null;
+                    stop = false;
+                } else {
+                    setTimeout(function() {
+                        elsoKartya.innerHTML = '?';
+                        elsoKartya.style.backgroundColor = '';
+                        elsoKartya.style.color = '';
+                        
+                        masodikKartya.innerHTML = '?';
+                        masodikKartya.style.backgroundColor = '';
+                        masodikKartya.style.color = '';
+
+                        elsoKartya = null;
+                        masodikKartya = null;
+                        stop = false;
+                    }, 1000);
+                }
+            }
+        };
         palya.appendChild(div);
     }
 }
