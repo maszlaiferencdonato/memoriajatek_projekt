@@ -1,11 +1,18 @@
 var jelek = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'];
 var palya = document.getElementById('palya');
-var csuszka = document.getElementById('kartya-szam');
+var csuszka = document.getElementById('kartya-szam'); // Az ID-t a képed alapján javítottam
 var ertekSzoveg = document.getElementById('ertek');
-var gomb = document.getElementById('keveres-btn');
+var gomb = document.getElementById('keveres-btn'); // Az ID-t a képed alapján javítottam
+
+
+var mentettDarab = localStorage.getItem('utolsoBeallitas');
+if (mentettDarab) {
+    csuszka.value = mentettDarab;
+    ertekSzoveg.innerHTML = mentettDarab;
+}
 
 function jatekInditasa() {
-    palya.innerHTML = '';
+    palya.innerHTML = ''; 
     var darab = parseInt(csuszka.value);
     
     var aktualisJelek = [];
@@ -20,23 +27,22 @@ function jatekInditasa() {
         div.className = 'kartya';
         div.innerHTML = '?';
         div.id = i;
-        
         div.setAttribute('data-jel', aktualisJelek[i]);
 
         div.onclick = function() {
             this.innerHTML = this.getAttribute('data-jel');
             this.style.backgroundColor = 'white';
+            this.style.color = 'black';
         };
 
         palya.appendChild(div);
     }
 }
 
-
 csuszka.oninput = function() {
     ertekSzoveg.innerHTML = this.value;
+    localStorage.setItem('utolsoBeallitas', this.value);
 }
-
 
 gomb.onclick = function() {
     jatekInditasa();
