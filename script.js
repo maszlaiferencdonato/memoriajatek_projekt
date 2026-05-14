@@ -43,16 +43,29 @@ function jatekInditasa() {
     for (var i = 0; i < darab; i++) {
         var div = document.createElement('div');
         div.className = 'kartya';
-        div.innerHTML = '?';
         div.setAttribute('data-jel', aktualisJelek[i]);
 
+        var divBelso = document.createElement('div');
+        divBelso.className = 'kartya-belso';
+
+        var divHatulja = document.createElement('div');
+        divHatulja.className = 'kartya-hatulja';
+        divHatulja.innerHTML = '?';
+
+        var divEleje = document.createElement('div');
+        divEleje.className = 'kartya-eleje';
+        divEleje.innerHTML = aktualisJelek[i];
+
+        divBelso.appendChild(divEleje);
+        divBelso.appendChild(divHatulja);
+        div.appendChild(divBelso);
+
         div.onclick = function() {
-            if (stop || this == elsoKartya || this.innerHTML != '?') {
+            if (stop || this == elsoKartya || this.classList.contains('fordit')) {
                 return;
             }
 
-            this.innerHTML = this.getAttribute('data-jel');
-            this.style.backgroundColor = 'white';
+            this.classList.add('fordit');
 
             if (elsoKartya == null) {
                 elsoKartya = this;
@@ -64,26 +77,29 @@ function jatekInditasa() {
 
                 if (elsoKartya.getAttribute('data-jel') == masodikKartya.getAttribute('data-jel')) {
                     megtalaltParok++;
+                    elsoKartya.classList.add('talalat');
+                    masodikKartya.classList.add('talalat');
+                    
                     elsoKartya = null;
                     masodikKartya = null;
                     stop = false;
 
                     if (megtalaltParok == darab / 2) {
-                        alert("Gratulálok! Megnyerted a játékot " + lepesek + " lépésből!");
-                        
-                        var regiRekord = localStorage.getItem('rekord');
-                        if (!regiRekord || lepesek < regiRekord) {
-                            localStorage.setItem('rekord', lepesek);
-                            rekordKijelzo.innerHTML = lepesek;
-                            alert("Új rekord!");
-                        }
+                        setTimeout(function(){
+                            alert("Gratulálok! Megnyerted a játékot " + lepesek + " lépésből!");
+                            
+                            var regiRekord = localStorage.getItem('rekord');
+                            if (!regiRekord || lepesek < regiRekord) {
+                                localStorage.setItem('rekord', lepesek);
+                                rekordKijelzo.innerHTML = lepesek;
+                                alert("Új rekord!");
+                            }
+                        }, 500);
                     }
                 } else {
                     setTimeout(function() {
-                        elsoKartya.innerHTML = '?';
-                        elsoKartya.style.backgroundColor = '';
-                        masodikKartya.innerHTML = '?';
-                        masodikKartya.style.backgroundColor = '';
+                        elsoKartya.classList.remove('fordit');
+                        masodikKartya.classList.remove('fordit');
                         elsoKartya = null;
                         masodikKartya = null;
                         stop = false;
