@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <title>Fruit Mix</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="jatek-kontener">
         <div class="fejlec">
@@ -13,6 +15,10 @@
                     <label for="kartya-szam">Kártyák száma</label>
                     <input type="range" id="kartya-szam" min="4" max="20" step="2" value="8">
                     <span id="ertek">8</span>
+
+                </div>
+                <div class="statisztika">
+                    Lépések: <span id="lepesek">0</span> | Rekord: <span id="rekord">0</span>
                 </div>
                 <button id="keveres-btn">Keverés</button>
             </div>
@@ -30,4 +36,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,12 +1,16 @@
-var jelek = ['🍎', '🍎', '🍌', '🍌', '🍇', '🍇', '🍓', '🍓', '🍒', '🍒', '🥝', '🥝', '🍍', '🍍', '🍊', '🍊'];
+var jelek = ['🍇', '🍇', '🍌', '🍌', '🍎', '🍎', '🥝', '🥝', '🍓', '🍓', '🍒', '🍒', '🍍', '🍍', '🍊', '🍊', '🍉', '🍉', '🍐', '🍐'];
 var palya = document.getElementById('palya');
 var csuszka = document.getElementById('kartya-szam');
 var ertekSzoveg = document.getElementById('ertek');
 var gomb = document.getElementById('keveres-btn');
+var lepesKijelzo = document.getElementById('lepesek');
+var rekordKijelzo = document.getElementById('rekord');
 
 var elsoKartya = null;
 var masodikKartya = null;
 var stop = false;
+var lepesek = 0;
+var megtalaltParok = 0;
 
 var mentettDarab = localStorage.getItem('utolsoBeallitas');
 if (mentettDarab) {
@@ -14,11 +18,19 @@ if (mentettDarab) {
     ertekSzoveg.innerHTML = mentettDarab;
 }
 
+var mentettRekord = localStorage.getItem('rekord');
+if (mentettRekord) {
+    rekordKijelzo.innerHTML = mentettRekord;
+}
+
 function jatekInditasa() {
     palya.innerHTML = ''; 
     elsoKartya = null;
     masodikKartya = null;
     stop = false;
+    lepesek = 0;
+    megtalaltParok = 0;
+    lepesKijelzo.innerHTML = "0";
 
     var darab = parseInt(csuszka.value);
     var aktualisJelek = [];
@@ -41,28 +53,37 @@ function jatekInditasa() {
 
             this.innerHTML = this.getAttribute('data-jel');
             this.style.backgroundColor = 'white';
-            this.style.color = 'black';
 
             if (elsoKartya == null) {
                 elsoKartya = this;
             } else {
                 masodikKartya = this;
                 stop = true;
+                lepesek++;
+                lepesKijelzo.innerHTML = lepesek;
 
                 if (elsoKartya.getAttribute('data-jel') == masodikKartya.getAttribute('data-jel')) {
+                    megtalaltParok++;
                     elsoKartya = null;
                     masodikKartya = null;
                     stop = false;
+
+                    if (megtalaltParok == darab / 2) {
+                        alert("Gratulálok! Megnyerted a játékot " + lepesek + " lépésből!");
+                        
+                        var regiRekord = localStorage.getItem('rekord');
+                        if (!regiRekord || lepesek < regiRekord) {
+                            localStorage.setItem('rekord', lepesek);
+                            rekordKijelzo.innerHTML = lepesek;
+                            alert("Új rekord!");
+                        }
+                    }
                 } else {
                     setTimeout(function() {
                         elsoKartya.innerHTML = '?';
                         elsoKartya.style.backgroundColor = '';
-                        elsoKartya.style.color = '';
-                        
                         masodikKartya.innerHTML = '?';
                         masodikKartya.style.backgroundColor = '';
-                        masodikKartya.style.color = '';
-
                         elsoKartya = null;
                         masodikKartya = null;
                         stop = false;
