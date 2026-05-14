@@ -1,5 +1,5 @@
 body {
-    background-color: #ffffff;
+    background-color: #efb88fe6;
     display: flex;
     justify-content: center;
     padding-top: 50px;
@@ -12,6 +12,7 @@ body {
     padding: 30px;
     width: 850px; 
     min-height: 500px;
+    background-color: #fdf8f8;
 }
 
 .fejlec {
@@ -121,7 +122,7 @@ input[type=range] {
 }
 
 .kartya-eleje {
-    background-color: white;
+    background-color: white ; 
     color: black;
     transform: rotateY(180deg); 
 }
